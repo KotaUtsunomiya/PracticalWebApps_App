@@ -32,7 +32,7 @@ class TagsTableSeeder extends Seeder
     ];
     Tag::create($param);
     $param = [
-        'tag' => '勉強',
+        'tag' => '移動',
     ];
     Tag::create($param);
     }
