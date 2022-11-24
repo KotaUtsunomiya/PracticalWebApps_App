@@ -9,43 +9,20 @@ class Todo extends Model
 {
     use HasFactory;
 
-    // モデルに関連付けるテーブル
     protected $table = 'todos';
+    
+    protected $fillable = ['text','tag_id']; 
 
-    // テーブルに関連付けるPrimary Key
-    protected $primaryKey = 'id';
-
-    // 操作可能なカラムの指定
-    protected $fillable = ['text']; 
-
-    // トップ画面表示用にtodosテーブルから全てのデータを取得
-    public function findAllTodos()
-    {
-        return Todo::all();
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
-    // 登録処理
-    public function insertTodo($request)
-    {
-        // リクエストデータを基にテーブルへ登録
-        return $this->create([
-            'text' => $request->text,
-        ]);
-    }    
-
-    // 更新処理
-    public function updateTodo($request, $todo)
-    {
-        $result = $todo->fill([
-            'text' => $request->text,
-        ])->save();
-
-        return $result;
+    public function tag(){
+        return $this->belongsTo(Tag::class);
+    }
+    public function getTag(){
+        return optional($this->tag)->tag;
     }
 
-    // 削除処理
-    public function deleteTodoById($id)
-    {
-        return $this->destroy($id);
-    }
+
 }

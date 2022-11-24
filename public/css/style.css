@@ -16,10 +16,59 @@
   background-color: #fff;
 }
 
+.card__header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .title{
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 15px;
+}
+
+.auth{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.user__info{
+  margin-right: 1rem;
+}
+
+.btn{
+  text-align: left;
+  font-size: 12px;
+  background-color: #fff;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.4s;
+  outline: none;
+}
+
+.btn-logout{
+  border: 2px solid #FF0000;
+  color: #FF0000;
+}
+.btn-logout:hover{
+  background-color: #FF0000;
+  color: #fff;
+}
+
+.btn-search{
+  display: inline-block;
+  border: 2px solid #cdf119;
+  color: #cdf119;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+.btn-search:hover{
+  background-color: #cdf119;
+  color: #fff;
 }
 
 .flex{
@@ -42,15 +91,30 @@ table{
 }
 
 .btn-add{
-  text-align: left;
-  border: 2px solid #ca7be0;
-  font-size: 13px;
-  color: #ca7be0;
-  background-color: #fff;
-  font-weight: bold;
-  padding: 8px 18px;
+  border: 2px solid #dc70fa;
+  color: #dc70fa;
+}
+.btn-add:hover{
+  background-color: #dc70fa;
+  color: #fff;
+}
+
+.btn-find {
+  border: 2px solid #dc70fa;
+  color: #dc70fa;
+}
+
+.btn-find:hover {
+  background-color: #dc70fa;
+  color: #fff;
+}
+
+.tag{
+  padding: 5px;
   border-radius: 5px;
-  cursor: pointer;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
 }
 
 tr{
@@ -66,25 +130,30 @@ tr{
 }
 
 .btn-update{
-  text-align: left;
-  border: 2px solid #f37a4a;
-  font-size: 12px;
-  color: #f37a4a;
-  background-color: #fff;
-  font-weight: bold;
-  padding: 5px 15px;
-  border-radius: 5px;
-  cursor: pointer;
+  border: 2px solid #fa9770;
+  color: #fa9770;
+}
+.btn-update:hover{
+  background-color: #fa9770;
+  color: #fff;
 }
 
 .btn-delete{
-  text-align: left;
-  border: 2px solid #58f5dd; 
-  font-size: 12px;
-  color: #58f5dd;
+  border: 2px solid #71fadc;
+  color: #71fadc;
+}
+.btn-delete:hover{
+  background-color: #71fadc;
+  color: #fff;
+}
+
+.btn-back{
+  border: 2px solid #6d7170;
+  color: #6d7170;
   background-color: #fff;
-  font-weight: bold;
-  padding: 5px 15px;
-  border-radius: 5px;
-  cursor: pointer;
+  text-decoration: none;
+}
+.btn-back:hover{
+  background-color: #6d7170;
+  color: #fff;
 }

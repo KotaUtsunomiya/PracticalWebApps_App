@@ -27,4 +27,11 @@ class ClientRequest extends FormRequest
             'text' => 'required|max:20',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'text.max'  => 'タスクは20文字以下で入力してください。',
+        ];
+    }
 }

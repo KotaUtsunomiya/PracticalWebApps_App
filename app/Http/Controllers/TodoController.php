@@ -3,57 +3,74 @@
 namespace App\Http\Controllers;
 
 use App\models\Todo;
+use App\models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class TodoController extends Controller
 {
+    protected $todos;
+
     public function __construct()
     {
-        $this->todo = new Todo();
+        $this->middleware('auth');
     }
 
-    // トップ画面
-    public function index()
+    public function index(Request $request)
     {
-        // モデルで定義したfindAllTodosにより、全データの取り出し
-        $todos = $this->todo->findAllTodos(); 
-
-        // view(index.blade.php)にデータを渡す
-        return view('index', compact('todos')); 
+        $user = Auth::user();
+        $todos = $request->user()->todos()->get();
+        $tags = Tag::all();
+        return view('index', compact('user','todos','tags')); 
     }
 
-    // 登録処理
     public function create(ClientRequest $request)
     {
-        // モデルで定義したinsertTodoにより、リクエストデータを登録
-        $registerTodo = $this->todo->insertTodo($request);
-
-        // todo.indexへリダイレクト
-        return redirect()->route('todo.index');
+        $request->user()->todos()->create([
+            'text' => $request->text,
+            'tag_id' => $request->tag_id,
+        ]);
+        return redirect()->back();
     }
 
-    // 更新処理
-    public function update(ClientRequest $request, $id)
+    public function update(ClientRequest $request, Todo $id)
     {
-        // 指定されたidのレコードを取得
-        $todo = Todo::find($id);
-
-        // モデルで定義したupdateTodoにより、指定のレコードのtodoをリクエストデータに更新
-        $updateTodo = $this->todo->updateTodo($request, $todo);
-
-        // todo.indexにリダイレクト
-        return redirect()->route('todo.index');
+        $this->authorize('update', $id);
+        $id->fill([
+            'text' => $request->text,
+            'tag_id' => $request->tag_id,
+        ])->save();
+        return redirect()->back();
     }
 
-    // 削除処理
-    public function destroy($id)
+    public function destroy(Request $request, Todo $id)
     {
-        //モデルで定義したdeleteTodoByidにより、指定されたidのレコードを削除
-        $deleteTodo = $this->todo->deleteTodoById($id); 
-
-        // todo.indexにリダイレクト
-        return redirect()->route('todo.index'); 
+        $this->authorize('destroy', $id);
+        $id->delete();
+        return redirect()->back();
     }
+
+    public function find(Request $request)
+    {
+        $user = Auth::user();
+        $tags = Tag::all();
+        return view('find', compact('user','tags')); 
+    }
+
+    public function search(Request $request)
+    {
+        $user = Auth::user();
+        $tags = Tag::all();
+        $todos = DB::table('todos')
+            ->where('user_id', $user->id)
+            ->where('tag_id', 'LIKE', $request->tag_id)
+            ->where('text', 'LIKE', "%{$request->text}%")->get();
+
+        return view('find_result', compact('user','todos','tags')); 
+    }
+
+
 }

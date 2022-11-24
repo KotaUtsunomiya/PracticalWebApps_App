@@ -17,6 +17,8 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('text', 20);
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('tag_id')->unsigned()->index();
         });
     }
 
