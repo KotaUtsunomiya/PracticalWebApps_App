@@ -20,10 +20,5 @@ class Todo extends Model
     public function tag(){
         return $this->belongsTo(Tag::class);
     }
-    /*
-    public function getTag(){
-        return optional($this->tag)->tag;
-    }
-    */
 
 }
