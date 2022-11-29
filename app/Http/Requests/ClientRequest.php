@@ -25,15 +25,16 @@ class ClientRequest extends FormRequest
     {
         return [
             'text' => 'required|max:20',
-            'tag'  => 'required',
+            'tag_id'  => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'text.max'     => 'タスクは20文字以下で入力してください。',
-            'tag.required' => 'タグを選択してください。'
+            'text.required'   => 'タスク名を入力してください。',
+            'text.max'        => 'タスクは20文字以下で入力してください。',
+            'tag_id.required' => 'タグを選択してください。'
         ];
     }
 }
