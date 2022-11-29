@@ -29,11 +29,21 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'email:strict,dns,spoof', 'min:8', 'max:191', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'max:191'],
         ];
     }
-
+    public function messages() {
+        return [
+            'email.required'    => 'メールアドレスを入力してください。',
+            'password.required' => 'パスワードを入力してください。',
+            'email.min'         => 'メールアドレスは 8文字以上 で入力してください。',
+            'email.max'         => 'メールアドレスは 191文字以下 で入力してください。',
+            'password.min'      => 'パスワードは 8文字以上 で入力してください。',
+            'password.max'      => 'パスワードは 191文字以下 で入力してください。',
+            'email.email'       => 'メールアドレスの形式で入力してください。',
+        ];
+    }
     /**
      * Attempt to authenticate the request's credentials.
      *

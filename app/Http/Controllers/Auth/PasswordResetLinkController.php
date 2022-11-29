@@ -29,7 +29,12 @@ class PasswordResetLinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'string', 'email', 'min:8', 'max:191', 'unique:users']
+        ],
+        [
+            'email.required'    => 'メールアドレスを入力してください。',
+            'email.min'         => 'メールアドレスは 8文字以上 で入力してください。',
+            'email.max'         => 'メールアドレスは 191文字以下 で入力してください。',
         ]);
 
         // We will send the password reset link to this user. Once we have attempted

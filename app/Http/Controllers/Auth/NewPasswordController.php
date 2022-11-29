@@ -35,8 +35,16 @@ class NewPasswordController extends Controller
     {
         $request->validate([
             'token' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'string', 'email', 'min:8', 'max:191', 'unique:users'],
+            'password' => ['required', 'confirmed', 'min:8', 'max:191', Rules\Password::defaults()],
+        ],
+        [
+            'email.required'    => 'メールアドレスを入力してください。',
+            'password.required' => 'パスワードを入力してください。',
+            'email.min'         => 'メールアドレスは 8文字以上 で入力してください。',
+            'email.max'         => 'メールアドレスは 191文字以下 で入力してください。',
+            'password.min'      => 'パスワードは 8文字以上 で入力してください。',
+            'password.max'      => 'パスワードは 191文字以下 で入力してください。',
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we
